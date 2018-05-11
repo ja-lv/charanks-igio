@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Character Rankings</title>
+    <link rel="shortcut icon" href="/assets/alienware.ico" type="image/x-icon" />
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container r-flow">
+
+        <div id="char-app">
+            <div>
+                <div class="character-bar">
+                    <div v-for="character in characters">
+                        <h1>{{character.name}} (id: {{character.id}})</h1>
+                        <div class="r-flow">
+                            <h3>Appeared in the following:</h3>
+                            <div v-for="game in character.games">
+                                <h4>{{game.name}}</h4>
+                                <p>Summary: {{game.summary}}</p>
+                            </div>
+                        </div>
+                        <div>Average Rating: {{character.rating}}</div>
+                        <div>Total Votes: {{character.votes}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+   <script type="text/javascript" src="https://unpkg.com/vue@2.5.15/dist/vue.min.js"></script>
+   <script type="text/javascript" src="https://unpkg.com/socket.io-client@2.1.0/dist/socket.io.js"></script>
+   <script type="text/javascript" src="/js/app.js"></script>
+    
+</body>
+</html>

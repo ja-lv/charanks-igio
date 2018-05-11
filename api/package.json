@@ -1,0 +1,14 @@
+{
+  "name": "igdb-api",
+  "version": "1.0.0",
+  "description": "program to interact with the igdb api",
+  "main": "igdb-api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "igdb-api-node": "^3.1.4"
+  }
+}
