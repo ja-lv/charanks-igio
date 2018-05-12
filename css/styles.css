@@ -1,0 +1,134 @@
+.dividing-header {
+  margin-top: 1em;
+  margin-bottom: 2em;
+}
+
+.section {
+  padding: 2rem 1.5rem;
+}
+
+.section i:hover{
+	background-color: #000000;
+}
+
+.media {
+  max-width: 100%;
+  margin: 0 auto;
+  border: 1px solid #e6e7e9;
+  padding: 1em 1.5em 0.5em 1.5em;
+  border-radius: 0.3em;;
+}
+
+.media+.media {
+  margin-top: 1.5rem;
+}
+
+.blue-border {
+  border: 1px solid #3373dc !important;
+}
+
+.tag {
+  font-size: 0.6rem !important;
+}
+
+.icon {
+  cursor: pointer;
+}
+
+.image.is-24x24 {
+  display: inline;
+  position: relative;
+  top: 5px;
+  border-radius: 20px;
+}
+
+
+.html {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    height:100%;
+    width:100%;
+    overflow: hidden;
+    background-color: #222222;
+} 
+
+/* .title {
+    text-align: center;
+    color: #000000;
+}
+
+.box{
+    margin: auto;
+    width: 95%;
+}
+
+.vertical-menu{
+    float: left;
+    margin-left: 2%;
+    height: 14%;
+    width: 20%;
+    background-color: #e6e6e6; 
+} */
+
+/* .vertical-menu a{
+    color: black;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+}
+
+.vertical-menu a:hover {
+    background-color: #ccc;
+}
+
+.vertical-menu a.active {
+    background-color: #25a25a;
+    color: white;
+} */
+
+/* .list{
+    padding: 10%;
+}
+
+.background{
+	background-color: #000000;
+}
+
+.content{
+    margin-left: 0%;
+    height: 75%;
+    width: 75%;
+    background-color: #e6e6e6;
+}
+
+footer{
+    text-align: center;
+    color: #FFFFFF;
+    margin-top: 5%;
+}
+
+.section {
+    width: 95%;
+    height: 5%;
+}
+*/
+
+.hero-body {
+    background-color: #25a25a;
+    height: 100%;
+}
+
+.leftbox {
+    width: 20%;
+    height: 10%;
+}
+
+.button {
+    width: 100%
+}
+
+.rightbox {
+    width: 85%;
+    height: 100%;
+}

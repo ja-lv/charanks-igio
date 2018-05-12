@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
+  <link rel="stylesheet" href="../css/styles.css" />
+  <title>IGDB</title>
+</head>
+
+<body>
+<div id="app">
+
+
+
+    <h2 class="title has-text-centered dividing-header">Internet Gaming Database</h2>
+
+	<div class="vertical-menu">
+   <div class="section"> 
+  <a v-on:click="listChoice = 'Ratings'" v-model="listChoice">
+  <label>Ratings</label>
+  </a>
+  <br>
+  <a v-on:click="listChoice = 'Characters'" v-model="listChoice">
+  <label>Characters</label>
+  </a>
+  </div>
+  </div>
+    <div class="level-right">
+	<div class="content">
+	<div class="section">
+	<div class="level-item">
+	<span>{{ listChoice }}</span>
+	</div>
+	<article v-if="listChoice === 'Characters'" class="media" 
+            v-for="character in sortedCharacters" >
+            <character-component
+              v-bind:character="character"
+              v-bind:characters="characters">
+            </character-component>
+    </article>
+	<article v-else-if="listChoice === 'Ratings'">
+    </article>
+	
+	</div>
+	</div>
+    </div>
+	
+  </div>
+
+  
+  
+  <script src="https://unpkg.com/vue"></script>
+  <script src="./js/seed.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
+  <link rel="stylesheet" href="../css/styles.css" />
+  <title>IGDB</title>
+</head>
+
+<body>
+    <div id="app">
+    
+        <section class="hero is-dark is-fullheight">
+
+            <!-- Hero head: will stick at the top -->
+            <div class="hero-head">
+                <div class="content has-text-centered">
+                    <img src="../css/IGDB_image.png" alt="IGDB Logo" width="250" height="150"> 
+                </div>
+            </div>
+
+                <!-- Hero content: will be in the middle -->
+                <div class="hero-body">
+
+                    <!-- creates the area for the boxes -->
+                    <div class="tile is-ancestor">
+
+                        <!-- creates box on the left side -->
+                        <div class="leftbox">
+                            <div class="tile is-vertical is-parent">
+                                <div class="tile is-child box">
+
+                                    <div class="vertical-menu">
+                                        <div class="section"> 
+                                            <a class="button" v-on:click="listChoice = 'Ratings'" v-model="listChoice">
+                                                <label>Ratings</label>
+                                            </a>
+                                            <br>
+                                            <a class="button" v-on:click="listChoice = 'Characters'" v-model="listChoice">
+                                                <label>Characters</label>
+                                            </a>
+                                        </div>
+                                    </div>
+                       
+                                    <!-- <a class="button" v-on:click="listChoice = 'Ratings'" v-model="listChoice">
+                                        <label>Ratings</label>
+                                    </a> 
+                                    <br>
+                                    <a class="button" v-on:click="listChoice = 'Characters'" v-model="listChoice">
+                                    <label>Characters</label>
+                                    </a> -->
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- creates box on the right side -->
+                        <div class="rightbox">
+                            <div class="tile is-parent is-12">
+                                <div class="tile is-child box">
+
+                                        <div class="level-right">
+                                            <div class="content">
+                                                <div class="section">
+                                                    <div class="level-item">
+                                                        <span>{{ listChoice }}</span>
+                                                    </div>
+                                                    <article v-if="listChoice === 'Characters'" class="media" 
+                                                        v-for="character in sortedCharacters" >
+                                                        <character-component
+                                                            v-bind:character="character"
+                                                            v-bind:characters="characters">
+                                                        </character-component>
+                                                    </article>
+                                                    <article v-else-if="listChoice === 'Ratings'">
+                                                    </article>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <!-- Hero footer: will stick at the bottom -->
+                <div class="hero-foot">
+                    <nav class="tabs is-boxed is-fullwidth">
+                    <div class="container">
+                        <div class="content has-text-centered">
+                            <p>
+                                Copyright &copy; <strong>IGDB Team</strong>
+                            </p>
+                        </div>
+                    </div>
+                    </nav>
+                </div>
+        </section>
+	
+  </div>
+
+  
+  <script src="https://unpkg.com/vue"></script>
+  <script src="./js/seed.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+
+</html>
