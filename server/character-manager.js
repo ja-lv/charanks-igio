@@ -1,7 +1,6 @@
 const igdb = require('../api/igdb-api')
 
 exports.startingCharacters = ( n ) =>{
-    console.log('id-gt :' + `${range(range(10, 304), range(305, 45466))}`)
     return new Promise(function(fulfill, reject){
         igdb.getCharacters({
             fields: '*',
@@ -18,14 +17,28 @@ exports.startingCharacters = ( n ) =>{
             characters.map((char, i)=>{
 
                 //assign random ratings 
-                char.rating = rangeDec(0, 5, 1)
+                char.rating = range(0, 5)
 
                 //assign random votes
                 char.votes = range(0, 2425)
+
+                if(!char.games){
+                    char.games = [{
+                        id: 'NA',
+                        name: 'NA',
+                        url: '',
+                        summary: 'NA',
+                        storyline: 'NA',
+                        rating: NaN
+                    }]
+
+                    chars.push(char)
+                    return 0
+                }
                 
-                igdb.getGame({
+                igdb.getGameWrapper({
                     fields: ['id', 'name', 'url', 'summary', 'storyline', 'rating'],
-                    limit: n,
+                    limit: 4,
                     ids: [char.games]
                 })
                 .then(games =>{

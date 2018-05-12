@@ -1,41 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Character Rankings</title>
-    <link rel="shortcut icon" href="/assets/alienware.ico" type="image/x-icon" />
-    <link href="/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
+  <link rel="stylesheet" href="../css/styles.css" />
+  <title>IGDB</title>
 </head>
+
 <body>
+    <div id="app">
+    
+        <section class="hero is-dark is-fullheight">
 
-    <div class="container r-flow">
-
-        <div id="char-app">
-            <div>
-                <div class="character-bar">
-                    <div v-for="character in characters">
-                        <h1>{{character.name}} (id: {{character.id}})</h1>
-                        <div class="r-flow">
-                            <h3>Appeared in the following:</h3>
-                            <div v-for="game in character.games">
-                                <h4>{{game.name}}</h4>
-                                <p>Summary: {{game.summary}}</p>
-                            </div>
-                        </div>
-                        <div>Average Rating: {{character.rating}}</div>
-                        <div>Total Votes: {{character.votes}}</div>
-                    </div>
+            <!-- Hero head: will stick at the top -->
+            <div class="hero-head">
+                <div class="content has-text-centered">
+                    <img src="../assets/IGDB_image.png" alt="IGDB Logo" width="250" height="150"> 
                 </div>
             </div>
-        </div>
 
-    </div>
+                <!-- Hero content: will be in the middle -->
+                <div class="hero-body">
 
+                    <!-- creates the area for the boxes -->
+                    <div class="tile is-ancestor">
+
+                        <!-- creates box on the left side -->
+                        <div class="leftbox">
+                            <div class="tile is-vertical is-parent">
+                                <div class="tile is-child box">
+
+                                    <div class="vertical-menu">
+                                        <div class="section"> 
+                                            <a class="button" v-on:click="listChoice = 'Ratings'" v-model="listChoice">
+                                                <label>Ratings</label>
+                                            </a>
+                                            <br>
+                                            <a class="button" v-on:click="listChoice = 'Characters'" v-model="listChoice">
+                                                <label>Characters</label>
+                                            </a>
+                                        </div>
+                                    </div>
+                       
+                                    <!-- <a class="button" v-on:click="listChoice = 'Ratings'" v-model="listChoice">
+                                        <label>Ratings</label>
+                                    </a> 
+                                    <br>
+                                    <a class="button" v-on:click="listChoice = 'Characters'" v-model="listChoice">
+                                    <label>Characters</label>
+                                    </a> -->
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- creates box on the right side -->
+                        <div class="rightbox">
+                            <div class="tile is-parent is-12">
+                                <div class="tile is-child box">
+
+                                        <div class="level-right">
+                                            <div class="content infocon">
+                                                <div class="section">
+                                                    <div class="level-item">
+                                                        <span>{{ listChoice }}</span>
+                                                    </div>
+                                                    <article v-if="listChoice === 'Characters'" class="media" 
+                                                        v-for="character in characters" >
+                                                        <character-component
+                                                            v-bind:character="character">
+                                                        </character-component>
+                                                    </article>
+                                                    <article v-else-if="listChoice === 'Ratings'">
+                                                    </article>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <!-- Hero footer: will stick at the bottom -->
+                <div class="hero-foot">
+                    <nav class="tabs is-boxed is-fullwidth">
+                    <div class="container">
+                        <div class="content has-text-centered">
+                            <p>
+                                Copyright &copy; <strong>CSULA 4220 Team</strong>
+                            </p>
+                        </div>
+                    </div>
+                    </nav>
+                </div>
+        </section>
+	
+  </div>
+
+  
    <script type="text/javascript" src="https://unpkg.com/vue@2.5.15/dist/vue.min.js"></script>
    <script type="text/javascript" src="https://unpkg.com/socket.io-client@2.1.0/dist/socket.io.js"></script>
-   <script type="text/javascript" src="/js/app.js"></script>
-    
+  <script type="text/javascript" src="./js/main.js"></script>
 </body>
+
 </html>
