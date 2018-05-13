@@ -67,23 +67,26 @@ app = new Vue({
     listChoice: '',
     selected: '',
     search: '',
-    searchHistory:[]
+    searchHistory:[],
+    searchResults:[]
   },
   methods:{
     fetchRankings: () =>{
       socket.emit('get-ranks', 10)
     },
     submitSearch (search) {
+      app.searchResults.splice(0,app.searchResults.length)
         // filters out whitespaces or null
         if(!(search.replace(/\s/g,"") == "") && !(search.trim().length===0)){
             // adds search to history if it doesn't exist
             if(!(this.searchHistory.includes(search))){
                 this.searchHistory.push(search)
                 socket.emit('add-search-to-history',search)
+                socket.emit('search-character',search)
             }
 
         //////make other calls here////////
-
+            
         }
         this.search = ''
 
@@ -91,7 +94,8 @@ app = new Vue({
   },
   components: {
     'character-component': characterComponent,
-    'ranking-component': characterComponent
+    'ranking-component': characterComponent,
+    'search-results-component': characterComponent
   }
 })
 
@@ -109,6 +113,12 @@ socket.on('refresh-rankings', characters=>{
 })
 
 // search history from server is set to this app's searchHistory
-socket.on('refresh-search-history', searchHistory=>{
+socket.on('refresh-search-history', searchHistory => {
     app.searchHistory = searchHistory
+})
+
+socket.on('search-results',searchResults =>{
+  console.log(app.characters.length)
+  //app.characters.concat(searchResults)
+  searchResults.forEach( result => app.searchResults.push(result))
 })
