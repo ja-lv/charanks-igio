@@ -59,7 +59,7 @@
                         </div>
 
                         <!-- creates box on the right side -->
-                        <div class="rightbox">
+                        <div class="rightbox"  v-if="listChoice">
                             <div class="tile is-parent is-12">
                                 <div class="tile is-child box">
 
@@ -75,7 +75,7 @@
                                                             v-bind:character="character">
                                                         </character-component>
                                                     </article>
-                                                    <article v-else-if="listChoice === 'Ratings'" v-for="character in rankings" >
+                                                    <article v-if="listChoice === 'Ratings'" v-for="character in rankings" >
                                                         <ranking-component
                                                             v-bind:character="character">
                                                         </ranking-component>

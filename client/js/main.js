@@ -71,6 +71,7 @@ app = new Vue({
   },
   methods:{
     fetchRankings: () =>{
+      console.log("making call")
       socket.emit('get-ranks', 10)
     },
     submitSearch (search) {
@@ -104,7 +105,7 @@ socket.on('refresh-characters', characters=>{
 socket.on('refresh-rankings', characters=>{
     app.rankings = characters
     console.log("Rankings:")
-    console.log(app.characters)
+    console.log(app.rankings)
 })
 
 // search history from server is set to this app's searchHistory
