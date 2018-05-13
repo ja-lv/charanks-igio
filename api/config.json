@@ -1,0 +1,9 @@
+{
+    "appName": "IGDB-CLI",
+    "key":  "87d33edaaaa9096493eed8a355b8360b",
+    "url": "https://api-endpoint.igdb.com",
+    "games": "/games",
+    "engine": "/game_engines",
+    "characters": "/characters",
+    "platforms": "/platforms"
+}
