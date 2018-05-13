@@ -5,7 +5,6 @@ module.exports = (server) => {
 
 
     let chars = []
-    let games = []
     const searchHistory = []
     const searchHash = {}
     let searchResults = []
@@ -85,6 +84,19 @@ module.exports = (server) => {
 
             //update client with character list
             socket.emit('refresh-characters', chars.slice(0).reverse())
+        })
+
+        //check for character and update
+
+        socket.on('updated-char', char =>{
+            const i = chars.findIndex(c => c.id == char.id )
+            console.log(i)
+            if(i > -1 && char.userRating > 0){
+                char.ratings = ((char.ratings * char.votes) + char.userRating) / char.votes+1
+                char.votes++
+                chars[i] = char
+                socket.emit('refresh-characters', chars.slice(0).reverse())
+            }
         })
 
         //render debugging data on server
