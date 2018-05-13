@@ -2,10 +2,12 @@ module.exports = (server) => {
     const
         io = require('socket.io')(server),
         cm = require('./character-manager')
+        cs = require('./character-search')
 
     let chars = []
     let games = []
     const searchHistory = []
+    let searchResults = []
 
     io.on('connection', socket => {
 
@@ -30,6 +32,14 @@ module.exports = (server) => {
             if(!searchHistory.includes(search))
                 searchHistory.push(search)
 
+        })
+
+        socket.on('search-character',search =>{
+            cs.searchCharacter( search ).then(characters => {
+                searchResults = characters
+                // send character information on load
+                socket.emit('search-results',searchResults)
+            }).catch(error=>console.log(error))
         })
 
         //render debugging data on server

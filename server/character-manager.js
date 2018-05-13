@@ -15,7 +15,7 @@ exports.startingCharacters = ( n ) =>{
             //go through each character and get each game info
             characters.map((char, i)=>{
 
-                console.log(char.name)
+                //console.log(char.name)
 
                 //assign random ratings 
                 char.rating = range(0, 5)
