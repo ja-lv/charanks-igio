@@ -59,21 +59,33 @@ const characterComponent = {
 }
 
 const socket = io(),
-      app = new Vue({
-        el: '#app',
-        data: {
-          rankings: [],
-          characters: [],
-          listChoice: '',
-          selected: ''	  
-        },
-        components: {
-          'character-component': characterComponent,
-          'ranking-component': characterComponent
-        }
-      })
+app = new Vue({
+  el: '#app',
+  data: {
+    rankings: [],
+    characters: [],
+    listChoice: '',
+    selected: ''	  
+  },
+  methods:{
+    fetchRankings: () =>{
+      socket.emit('get-ranks', 10)
+    }
+  },
+  components: {
+    'character-component': characterComponent,
+    'ranking-component': characterComponent
+  }
+})
 
 socket.on('refresh-characters', characters=>{
     app.characters = characters
+    console.log(app.characters)
+})
+
+
+socket.on('refresh-rankings', characters=>{
+    app.rankings = characters
+    console.log("Rankings:")
     console.log(app.characters)
 })

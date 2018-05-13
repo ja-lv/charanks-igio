@@ -22,8 +22,13 @@ module.exports = (server) => {
         }
 
         //render debugging data on server
+        socket.on('get-ranks', n =>{
+            socket.emit('refresh-rankings', cm.getTopN(chars, n))
+        })
+
+        //render debugging data on server
         socket.on('sending-debug-data', data =>{
-            
+
         })
 
     })
