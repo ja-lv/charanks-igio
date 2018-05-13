@@ -69,8 +69,10 @@ app = new Vue({
   },
   methods:{
     fetchRankings: () =>{
-      console.log("making call")
       socket.emit('get-ranks', 10)
+    },
+    fetchCharacters: () =>{
+      socket.emit('get-characters', 24)
     }
   },
   components: {
@@ -80,6 +82,7 @@ app = new Vue({
 })
 
 socket.on('refresh-characters', characters=>{
+    console.log("Characters:")
     app.characters = characters
     console.log(app.characters)
 })
