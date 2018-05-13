@@ -1,5 +1,5 @@
 const characterComponent = {
-  template: 
+  template:
   `<div style="display: flex; width: 100%">
     <figure class="media-left picfig">
         <img v-if="character.mug_shot" class="image is-64x64" v-bind:src="character.mug_shot.url">
@@ -12,7 +12,7 @@ const characterComponent = {
             <a v-bind:href="character.url" class="has-text-info">{{character.name}}</a>
             <span class="tag is-small">{{character.id}}</span>
           </strong>
-          <br> 
+          <br>
           Appeared in:
           <span v-for="(game, i) in character.games">
             <a v-bind:href="game.url" class="has-text-info">{{game.name}}<span v-if="i < character.games.length - 1">, </span></a>
@@ -65,11 +65,28 @@ app = new Vue({
     rankings: [],
     characters: [],
     listChoice: '',
-    selected: ''	  
+    selected: '',
+    search: '',
+    searchHistory:[]
   },
   methods:{
     fetchRankings: () =>{
       socket.emit('get-ranks', 10)
+    },
+    submitSearch (search) {
+        // filters out whitespaces or null
+        if(!(search.replace(/\s/g,"") == "") && !(search.trim().length===0)){
+            // adds search to history if it doesn't exist
+            if(!(this.searchHistory.includes(search))){
+                this.searchHistory.push(search)
+                socket.emit('add-search-to-history',search)
+            }
+
+        //////make other calls here////////
+
+        }
+        this.search = ''
+
     }
   },
   components: {
@@ -88,4 +105,9 @@ socket.on('refresh-rankings', characters=>{
     app.rankings = characters
     console.log("Rankings:")
     console.log(app.characters)
+})
+
+// search history from server is set to this app's searchHistory
+socket.on('refresh-search-history', searchHistory=>{
+    app.searchHistory = searchHistory
 })

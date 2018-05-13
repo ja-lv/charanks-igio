@@ -10,13 +10,16 @@
 
 <body>
     <div id="app">
-    
+        <div>
+            <input type="text" list="hist" title="searchbar" class="input" required v-model="search" @keyup.enter="submitSearch(search)" size="30">
+            <datalist id="hist"  class="dropdown-menu"><option v-for="searchTerm in searchHistory">{{searchTerm}}</option></datalist>
+        </div>
         <section class="hero is-dark is-fullheight">
 
             <!-- Hero head: will stick at the top -->
             <div class="hero-head">
                 <div class="content has-text-centered">
-                    <img src="../assets/IGDB_image.png" alt="IGDB Logo" width="250" height="150"> 
+                    <img src="../assets/IGDB_image.png" alt="IGDB Logo" width="250" height="150">
                 </div>
             </div>
 
@@ -32,7 +35,7 @@
                                 <div class="tile is-child box">
 
                                     <div class="vertical-menu">
-                                        <div class="section"> 
+                                        <div class="section">
                                             <a class="button" v-on:click="listChoice = 'Ratings'; fetchRankings()" v-model="listChoice">
                                                 <label>Ratings</label>
                                             </a>
@@ -42,10 +45,10 @@
                                             </a>
                                         </div>
                                     </div>
-                       
+
                                     <!-- <a class="button" v-on:click="listChoice = 'Ratings'" v-model="listChoice">
                                         <label>Ratings</label>
-                                    </a> 
+                                    </a>
                                     <br>
                                     <a class="button" v-on:click="listChoice = 'Characters'" v-model="listChoice">
                                     <label>Characters</label>
@@ -54,7 +57,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- creates box on the right side -->
                         <div class="rightbox">
                             <div class="tile is-parent is-12">
@@ -66,7 +69,7 @@
                                                     <div class="level-item">
                                                         <span>{{ listChoice }}</span>
                                                     </div>
-                                                    <article v-if="listChoice === 'Characters'" class="media" 
+                                                    <article v-if="listChoice === 'Characters'" class="media"
                                                         v-for="character in characters" >
                                                         <character-component
                                                             v-bind:character="character">
@@ -79,14 +82,14 @@
                                                     </article>
                                                 </div>
                                             </div>
-                                        </div> 
+                                        </div>
                                 </div>
                             </div>
                         </div>
 
                     </div>
                 </div>
-                
+
                 <!-- Hero footer: will stick at the bottom -->
                 <div class="hero-foot">
                     <nav class="tabs is-boxed is-fullwidth">
@@ -100,10 +103,10 @@
                     </nav>
                 </div>
         </section>
-	
+
   </div>
 
-  
+
    <script type="text/javascript" src="https://unpkg.com/vue@2.5.15/dist/vue.min.js"></script>
    <script type="text/javascript" src="https://unpkg.com/socket.io-client@2.1.0/dist/socket.io.js"></script>
   <script type="text/javascript" src="./js/main.js"></script>

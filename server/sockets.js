@@ -5,6 +5,7 @@ module.exports = (server) => {
 
     let chars = []
     let games = []
+    const searchHistory = []
 
     io.on('connection', socket => {
 
@@ -20,6 +21,16 @@ module.exports = (server) => {
         else{
             socket.emit('refresh-characters', chars)
         }
+
+        // send search history
+        socket.emit('refresh-search-history', searchHistory)
+
+        // adds new search element to searchHistory
+        socket.on('add-search-to-history', search =>{
+            if(!searchHistory.includes(search))
+                searchHistory.push(search)
+
+        })
 
         //render debugging data on server
         socket.on('get-ranks', n =>{

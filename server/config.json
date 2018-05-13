@@ -1,0 +1,7 @@
+{
+	"url" : "https://api-endpoint.igdb.com/",
+	"key":"9da518db2f1999b277a44b664f47ba90",
+	"games" : "games",
+	"engine": "game_engines",
+	"platfrorms": "platforms"
+}
