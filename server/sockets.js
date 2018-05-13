@@ -2,42 +2,34 @@ module.exports = (server) => {
     const
         io = require('socket.io')(server),
         cm = require('./character-manager')
+        characterSearch = require('./find-matching-character')
 
     let chars = []
     let games = []
+    let searchCharacters = []
+    
+    cm.startingCharacters( 10 ).then(characters => chars = characters).catch(error=>console.log(error))
+    
 
     io.on('connection', socket => {
 
-        //start by loading the characters, if already load it just emit
-        if(chars.length == 0) {
-            //load characters
-            cm.startingCharacters( 30 ).then(characters => {
-                chars = characters
-                // send character information on load
-                socket.emit('refresh-characters', chars)
-            }).catch(error=>console.log(error))
-        }
-        else{
-            socket.emit('refresh-characters', chars)
-        }
+        // send character information
+        socket.emit('refresh-characters', chars)
 
-        //send out top ranks 
-        socket.on('get-ranks', n =>{
-            socket.emit('refresh-rankings', cm.getTopN(chars.slice(0), n))
-        })
-
-        //send out list of characters
-        socket.on('get-characters', n =>{
-            //check if n is valid
-            if(n > chars.length){
-                n = chars.length
-            }
-            socket.emit('refresh-characters', chars.slice(0, n - 1))
+        // search for characters in database
+        socket.on('search-character', searchTerm =>{
+            characterSearch( searchTerm )
+            .then(characters => {
+                searchCharacters = characters
+                socket.emit('character-matches', searchCharacters)
+            })
+            .catch(error=>console.log(error))
         })
 
         //render debugging data on server
         socket.on('sending-debug-data', data =>{
-
+            console.log(chars)
+            console.log("data recieved")
         })
 
     })

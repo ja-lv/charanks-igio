@@ -6,27 +6,21 @@ exports.startingCharacters = ( n ) =>{
             fields: '*',
             limit: n,
             filters: {
-                'mug_shot-exists' : ``
+                'gender-eq' : `${range(0, 2)}`
             }
         })
         .then(characters=>{
             let chars = []
             
+
             //go through each character and get each game info
             characters.map((char, i)=>{
-
-                console.log(char.name)
 
                 //assign random ratings 
                 char.rating = range(0, 5)
 
                 //assign random votes
                 char.votes = range(0, 2425)
-
-                if(!char.rating){
-                    // console.log("WOops for: ")
-                    // console.log(char)
-                }
 
                 if(!char.games){
                     char.games = [{
@@ -68,23 +62,6 @@ exports.startingCharacters = ( n ) =>{
             reject(error)
         })
     })
-}
-
-//array, amount we want
-exports.getTopN = (chars, rankAmt)=> {
-    // for(let i = 0; i < chars.length; i++) 
-    // {
-    //     let temp = chars[i].rating;
-    //     let j = i - 1;
-    //     while (j >= 0 && chars[j].rating < temp) 
-    //     {
-    //       chars[j + 1] = chars[j];
-    //       j--;
-    //     }
-    //     chars[j + 1].rating = temp;
-    // }
-    
-  return chars.slice(0, rankAmt);
 }
 
 function range (min, max){
