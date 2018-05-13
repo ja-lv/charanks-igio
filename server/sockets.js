@@ -3,15 +3,17 @@ module.exports = (server) => {
         io = require('socket.io')(server),
         cm = require('./character-manager')
 
+
     let chars = []
     let games = []
+    const searchHistory = []
 
     io.on('connection', socket => {
 
         //start by loading the characters, if already load it just emit
         if(chars.length == 0) {
             //load characters
-            cm.startingCharacters( 30 ).then(characters => {
+            cm.startingCharacters( 20 ).then(characters => {
                 chars = characters
                 // send character information on load
                 socket.emit('refresh-characters', chars)
@@ -21,18 +23,19 @@ module.exports = (server) => {
             socket.emit('refresh-characters', chars)
         }
 
-        //send out top ranks 
-        socket.on('get-ranks', n =>{
-            socket.emit('refresh-rankings', cm.getTopN(chars.slice(0), n))
+        // send search history
+        socket.emit('refresh-search-history', searchHistory)
+
+        // adds new search element to searchHistory
+        socket.on('add-search-to-history', search =>{
+            if(!searchHistory.includes(search))
+                searchHistory.push(search)
+
         })
 
-        //send out list of characters
-        socket.on('get-characters', n =>{
-            //check if n is valid
-            if(n > chars.length){
-                n = chars.length
-            }
-            socket.emit('refresh-characters', chars.slice(0, n - 1))
+        //render debugging data on server
+        socket.on('get-ranks', n =>{
+            socket.emit('refresh-rankings', cm.getTopN(chars.slice(0), n))
         })
 
         //render debugging data on server
