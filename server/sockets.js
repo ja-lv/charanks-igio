@@ -77,7 +77,10 @@ module.exports = (server) => {
 
             //remove character from search cache
             if(searchHistory.includes(search)){
-                searchHash[search] = searchHash[search].splice(searchHash[search].indexOf(char), 1)
+                searchHash[search] = searchHash[search].filter(cacheChar =>{
+                    if(cacheChar.id != char.id) return true
+                    else return false
+                })
             }
 
             //update client with character list
