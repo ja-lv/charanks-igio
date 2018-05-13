@@ -20,6 +20,12 @@
                 </div>
             </div>
 
+            <!-- Search Bar-->
+            <div>
+                <input type="text" list="hist" title="searchbar" class="input" placeholder="search for character" required v-model="search" @keyup.enter="submitSearch(search) ; listChoice = 'Results';" size="30">
+                <datalist id="hist" class="dropdown-menu"><option v-for="searchTerm in searchHistory">{{searchTerm}}</option></datalist>
+            </div>
+
                 <!-- Hero content: will be in the middle -->
                 <div class="hero-body">
 
@@ -40,6 +46,10 @@
                                             <a class="button" v-on:click="listChoice = 'Characters'; fetchCharacters()" v-model="listChoice">
                                                 <label>Characters</label>
                                             </a>
+                                            <br>
+                                            <button v-bind:class="{ activeBtn : listChoice == 'Results' }" class="button" disabled v-on:click="listChoice = 'Results'; submitSearch(search)" v-model="listChoice">
+                                                <label>Search Results</label>
+                                            </button>
                                         </div>
                                     </div>
                        
@@ -56,34 +66,44 @@
                         </div>
                         
                         <!-- creates box on the right side -->
-                        <div class="rightbox"  v-if="listChoice">
-                            <div class="tile is-parent is-12">
-                                <div class="tile is-child box">
+                        <transition name="bounce">
+                            <div class="rightbox"  v-if="listChoice">
+                                <div class="tile is-parent is-12">
+                                    <div class="tile is-child box">
 
-                                        <div class="level-right">
-                                            <div class="content infocon">
-                                                <div class="section">
-                                                    <div class="level-item">
-                                                        <span>{{ listChoice }}</span>
+                                            <div class="level-right">
+                                                <div class="content infocon">
+                                                    <div class="section">
+                                                        <div class="level-item">
+                                                            <span>{{ listChoice }}</span>
+                                                        </div>
+                                                        <article v-if="listChoice === 'Characters'" class="media" v-for="character in characters">
+                                                            <character-component
+                                                                v-bind:character="character">
+                                                            </character-component>
+                                                        </article>
+                                                        <article v-if="listChoice === 'Ratings'" class="media" v-for="character in rankings" >
+                                                            <ranking-component
+                                                                v-bind:character="character">
+                                                            </ranking-component>
+                                                        </article>
+                                                        <div v-if="listChoice === 'Results'" >
+                                                            <article v-if="searchResults.length > 0" class="media" v-for="character in searchResults" >
+                                                                <search-results-component
+                                                                    v-bind:character="character" v-bind:search="lastSearch">
+                                                                </search-results-component>
+                                                            </article>
+                                                            <div v-if="searchResults.length == 0">
+                                                                <h3>No results</h3>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <article v-if="listChoice === 'Characters'" class="media" 
-                                                        v-for="character in characters" >
-                                                        <character-component
-                                                            v-bind:character="character">
-                                                        </character-component>
-                                                    </article>
-                                                    <article v-if="listChoice === 'Ratings'" v-for="character in rankings" >
-                                                        <ranking-component
-                                                            v-bind:character="character">
-                                                        </ranking-component>
-                                                    </article>
                                                 </div>
-                                            </div>
-                                        </div> 
+                                            </div> 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
+                        </transition>
                     </div>
                 </div>
                 

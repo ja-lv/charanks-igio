@@ -74,6 +74,49 @@ exports.startingCharacters = ( n ) =>{
     })
 }
 
+exports.searchCharacter = ( name ) =>{
+    return new Promise(function(fulfill, reject){
+        igdb.getCharacters({
+            fields: '*',
+            limit: 10,
+            search: name
+        })
+        .then(characters=>{
+            let chars = []
+            characters.forEach( (character, i) => {
+                //dont assign rating
+                character.rating = ''
+
+                //no votes
+                character.votes = ''
+                if(character.games){
+                    igdb.getGameWrapper({
+                        fields: ['id', 'name', 'url', 'summary', 'storyline', 'rating'],
+                        limit: 4,
+                        ids: [character.games]
+                    })
+                    .then(games =>{
+                        //add the games into the current character
+                        character.games = games
+    
+                        //push the current character into the stack
+                        chars.push(character)
+                        if(i===characters.length-1)
+                            fulfill(chars)
+                    })
+                    .catch(error=>{
+                        console.log("error occured in character manager, game searching")
+                    })
+                }
+            })
+
+        })
+        .catch(error =>{
+            reject(error)
+        })
+    })
+}
+
 //array, amount we want
 exports.getTopN = (chars, rankAmt)=> {
     //run a function for comparison
