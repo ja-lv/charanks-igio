@@ -10,10 +10,7 @@
 
 <body>
     <div id="app">
-        <div>
-            <input type="text" list="hist" title="searchbar" class="input" required v-model="search" @keyup.enter="submitSearch(search)" size="30">
-            <datalist id="hist"  class="dropdown-menu"><option v-for="searchTerm in searchHistory">{{searchTerm}}</option></datalist>
-        </div>
+
         <section class="hero is-dark is-fullheight">
 
             <!-- Hero head: will stick at the top -->
@@ -22,7 +19,10 @@
                     <img src="../assets/IGDB_image.png" alt="IGDB Logo" width="250" height="150">
                 </div>
             </div>
-
+            <div>
+                <input type="text" list="hist" title="searchbar" class="input" placeholder="search for character" required v-model="search" @keyup.enter="submitSearch(search)" size="30">
+                <datalist id="hist"  class="dropdown-menu"><option v-for="searchTerm in searchHistory">{{searchTerm}}</option></datalist>
+            </div>
                 <!-- Hero content: will be in the middle -->
                 <div class="hero-body">
 
