@@ -72,7 +72,7 @@
                                                             v-bind:character="character">
                                                         </character-component>
                                                     </article>
-                                                    <article v-else-if="listChoice === 'Ratings'" v-for="character in rankings" >
+                                                    <article v-if="listChoice === 'Ratings'" v-for="character in rankings" >
                                                         <ranking-component
                                                             v-bind:character="character">
                                                         </ranking-component>
