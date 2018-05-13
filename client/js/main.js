@@ -17,6 +17,13 @@ const characterComponent = {
           <span v-for="(game, i) in character.games">
             <a v-bind:href="game.url" class="has-text-info">{{game.name}}<span v-if="i < character.games.length - 1">, </span></a>
           </span>
+          <br>
+          <div v-if="character.akas">
+            <strong>AKA</strong>:
+            <span v-for="(aka, i) in character.akas">
+              {{aka}}<span v-if="i < character.akas.length - 1">, 
+            </span>
+          </div>
         </p>
       </div>
     </div>
@@ -25,8 +32,9 @@ const characterComponent = {
 		<div class="section">
       <div v-if="character.rating >= 0">
         <span class="icon is-small" v-for="i in character.rating">
-        <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
         </span>
+        <p class="center">Votes: {{character.votes}}</p>
       </div>
       <div v-else>
         <span>0</span>
