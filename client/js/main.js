@@ -22,10 +22,15 @@ const characterComponent = {
     </div>
 	<div class="level-right">
 	<div class="media-right">
-		<div class="section" v-if="character.rating">
-			<span class="icon is-small" v-for="i in character.rating">
-			<i class="fa fa-star"></i>
-			</span>
+		<div class="section">
+      <div v-if="character.rating >= 0">
+        <span class="icon is-small" v-for="i in character.rating">
+        <i class="fa fa-star"></i>
+        </span>
+      </div>
+      <div v-else>
+        <span>0</span>
+      </div>
 		</div>
 		<div v-else>
 			<small>No rating... <br>Rate the character please</small>

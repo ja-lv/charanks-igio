@@ -12,7 +12,6 @@ exports.startingCharacters = ( n ) =>{
         .then(characters=>{
             let chars = []
             
-
             //go through each character and get each game info
             characters.map((char, i)=>{
 
@@ -21,6 +20,11 @@ exports.startingCharacters = ( n ) =>{
 
                 //assign random votes
                 char.votes = range(0, 2425)
+
+                if(!char.rating){
+                    // console.log("WOops for: ")
+                    // console.log(char)
+                }
 
                 if(!char.games){
                     char.games = [{
@@ -62,6 +66,23 @@ exports.startingCharacters = ( n ) =>{
             reject(error)
         })
     })
+}
+
+//array, amount we want
+exports.getTopN = (chars, rankAmt)=> {
+    for(let i = 0; i < chars.length; i++) 
+    {
+        let temp = chars[i].rating;
+        let j = i - 1;
+        while (j >= 0 && chars[j].rating < temp) 
+        {
+          chars[j + 1] = chars[j];
+          j--;
+        }
+        chars[j + 1].rating = temp;
+    }
+    
+  return chars;
 }
 
 function range (min, max){

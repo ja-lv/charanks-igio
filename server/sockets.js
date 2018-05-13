@@ -5,19 +5,24 @@ module.exports = (server) => {
 
     let chars = []
     let games = []
-    
-    cm.startingCharacters( 10 ).then(characters => chars = characters).catch(error=>console.log(error))
 
     io.on('connection', socket => {
 
-        // send character information
-        socket.emit('refresh-characters', chars)
-
+        //start by loading the characters, if already load it just emit
+        if(chars.length == 0) {
+            //load characters
+            cm.startingCharacters( 20 ).then(characters => {
+                chars = characters
+                // send character information on load
+                socket.emit('refresh-characters', chars)
+            }).catch(error=>console.log(error))
+        }
+        else{
+            socket.emit('refresh-characters', chars)
+        }
 
         //render debugging data on server
         socket.on('sending-debug-data', data =>{
-            console.log(chars)
-            console.log("data recieved")
         })
 
     })
