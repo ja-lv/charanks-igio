@@ -23,6 +23,7 @@ module.exports = (server) => {
 
         //render debugging data on server
         socket.on('sending-debug-data', data =>{
+            
         })
 
     })

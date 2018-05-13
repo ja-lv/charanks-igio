@@ -62,12 +62,14 @@ const socket = io(),
       app = new Vue({
         el: '#app',
         data: {
+          rankings: [],
           characters: [],
           listChoice: '',
           selected: ''	  
         },
         components: {
-          'character-component': characterComponent
+          'character-component': characterComponent,
+          'ranking-component': characterComponent
         }
       })
 
