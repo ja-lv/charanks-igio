@@ -72,19 +72,12 @@ exports.startingCharacters = ( n ) =>{
 
 //array, amount we want
 exports.getTopN = (chars, rankAmt)=> {
-    // for(let i = 0; i < chars.length; i++) 
-    // {
-    //     let temp = chars[i].rating;
-    //     let j = i - 1;
-    //     while (j >= 0 && chars[j].rating < temp) 
-    //     {
-    //       chars[j + 1] = chars[j];
-    //       j--;
-    //     }
-    //     chars[j + 1].rating = temp;
-    // }
-    
-  return chars.slice(0, rankAmt);
+    //run a function for comparison
+
+     return chars.sort((char1, char2)=>{
+        return char2.rating - char1.rating
+    }).slice(0, rankAmt)
+
 }
 
 function range (min, max){
