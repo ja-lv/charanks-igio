@@ -103,7 +103,6 @@ const app = new Vue({
             //search first, due to cache
             socket.emit('search-character',search)//this sends a search to the socket to make an api call
 
-            //     this.searchHistory.push(search)
            
             
       }
