@@ -90,23 +90,21 @@ const app = new Vue({
     fetchCharacters: () =>{
       socket.emit('get-characters', 24)
     },
+
+    //start
+
     //we get an input from the user we call the submitSearch method
     submitSearch (search) {
       //empty the array
-      app.searchResults.splice(0,app.searchResults.length)//clear the results from previous results
+      app.searchResults.splice(0,app.searchResults.length) //clear the results from previous results
         // filters out whitespaces or null
         if(!(search.trim().length===0)){//cuts the spaces out on both ends
 
             //search first, due to cache
             socket.emit('search-character',search)//this sends a search to the socket to make an api call
 
-            // // adds search to history if it doesn't exist
-            // if(!(this.searchHistory.includes(search))){
             //     this.searchHistory.push(search)
-            //     socket.emit('add-search-to-history',search)
-            // }
-
-        //////make other calls here////////
+           
             
       }
       this.lastSearch = this.search//we set our search to our last search
@@ -146,3 +144,4 @@ socket.on('search-results',searchResults =>{ //recieve a result from the socket
   searchResults.forEach( result => app.searchResults.push(result))//otherwise we add the results to our searchs array
   //so that we can be displayed our component
 })
+//end
